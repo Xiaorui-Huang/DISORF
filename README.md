@@ -35,7 +35,7 @@ servers.
 ### Prerequisites
 
 DISORF requires installation of [**ROS1**](https://wiki.ros.org/Installation) and CUDA installed.
-This project has been tested on Ubuntu 20.04 with Python 3.11 and [CUDA 12.1](https://developer.nvidia.com/cuda-12-1-1-download-archive)
+This project has been tested on Ubuntu 20.04 with Python 3.10 and [CUDA 12.1](https://developer.nvidia.com/cuda-12-1-1-download-archive)
 
 *Note: ROS1 is supported up to Ubuntu 20.04 only, higher versions requires [building from source](https://gist.github.com/Meltwin/fe2c15a5d7e6a8795911907f627255e0)*
 
