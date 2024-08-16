@@ -1,0 +1,9 @@
+export PYTHONNOUSERSITE=1
+export PYTHONPATH=~/Projects/Ruofan/DISORF-GS:$PYTHONPATH
+
+python server_end/ros_train.py ros_gaussian_splatting --experiment-name debug --data data_ros_splatfacto/replica_slam/tx2_office0 --pipeline.datamanager.dataparser.ros-data config/camera/REPLICA_config_undistorted.json --draw-training-images True --vis tensorboard --steps_per_eval_all_images 10000 --steps_per_save 10001 --max_num_iterations 10001 --relocate_cameras True  --pipeline.datamanager.training_sampler inverse_delta  --auto_transmission True --dump_received_images True
+
+python /home/ubuntu/Projects/Edward/nerfbridge_experiment/ros_posed_img_transfer.py --img_dir /home/ubuntu/Projects/Edward/nerfbridge_experiment/data/replica_slam/undistorted/tx2_office0 --pose_file /home/ubuntu/Projects/Edward/nerfbridge_experiment/data/replica_slam/undistorted/tx2_office0.txt --frame_rate 30
+
+
+python server_end/ros_train.py ros_gaussian_splatting --experiment-name debug --data data/replica_slam/undistorted/tx2_office0 --pipeline.datamanager.dataparser.ros-data config/camera/REPLICA_config_undistorted.json --draw-training-images True --vis viewer --steps_per_eval_all_images 30000 --steps_per_save 30001 --max_num_iterations 30001 --relocate_cameras True --disable_streaming False --pipeline.datamanager.dataparser.use_cached_training_data True --pipeline.eval_idx_list data/extra_cfg/replica_slam/tx2_office0/eval_idx.txt --pipeline.datamanager.replay_transmission_log data/extra_cfg/replica_slam/tx2_office0/frames_log_2.5k_8192.txt --pipeline.datamanager.training_sampler inverse_delta --pipeline.datamanager.track_sample_cnt True --auto_transmission True

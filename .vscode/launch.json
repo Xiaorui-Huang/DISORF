@@ -1,0 +1,360 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "Python Debugger: Remote Attach",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "."
+                }
+            ]
+        },
+        {
+            "name": "Launch Chrome against localhost",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:4000",
+            "webRoot": "${workspaceFolder}/nerfstudio/viewer/app"
+        },
+        {
+            "name": "Python: Attach using Process ID",
+            "type": "debugpy",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: train",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "instant_ngp",
+                "--viewer.no-enable",
+                "--logging.event-writer=wandb"
+            ]
+        },
+        {
+            "name": "Python: train ngp",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "instant_ngp"
+            ]
+        },
+        {
+            "name": "Python: train ngp nerfstudio",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "instant_ngp",
+                // "--experiment_name=nerfstudio_experiment",
+                "--logging.local-writer.max-log-size=0",
+                "--viewer.no-enable"
+                // viewer
+                // "--viewer.enable",
+                // "--viewer.zmq-url=tcp://127.0.0.1:6001",
+                // "--viewer.websocket-port=8014",
+                // "--pipeline.model.randomize-background",
+                // "--pipeline.model.cone-angle=0.00390625",
+                // "nerfstudio-data"
+            ]
+        },
+        {
+            "name": "Python: train ngp-friends",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "instant_ngp",
+                "--viewer.enable",
+                "--viewer.zmq-url=tcp://127.0.0.1:6001",
+                "--viewer.websocket-port=8014",
+                "--steps_per_save=1000000",
+                "--steps_per_test=1000000",
+                "--pipeline.model.density-field-params.base-scale=4",
+                "--pipeline.model.density-field-params.num-cascades=1",
+                "pipeline.datamanager.train-dataparser:friends-data-parser-config",
+                "--pipeline.datamanager.train-dataparser.scene-scale=4"
+            ]
+        },
+        {
+            "name": "Python: train semantic_nerfw",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "semantic_nerf"
+            ]
+        },
+        {
+            "name": "Python: NeuS on Replica",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "args": [
+                "neus",
+                "--pipeline.model.sdf-field.inside-outside=True",
+                "--pipeline.model.mono-depth-loss-mult=0.1",
+                "--pipeline.model.mono-normal-loss-mult=0.05",
+                "--vis=wandb",
+                "sdfstudio-data",
+                "--data=data/sdfstudio-demo-data/replica-room0",
+                "--include_mono_prior=True"
+            ]
+        },
+        {
+            "name": "Python: NeuS-facto on Replica",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "args": [
+                "neus-facto",
+                "--pipeline.model.sdf-field.inside-outside=True",
+                "--pipeline.model.mono-depth-loss-mult=0.1",
+                "--pipeline.model.mono-normal-loss-mult=0.05",
+                "--vis=wandb",
+                "sdfstudio-data",
+                "--data=data/sdfstudio-demo-data/replica-room0",
+                "--include_mono_prior=True"
+            ]
+        },
+        {
+            "name": "Python: NeuS-facto on DTU (no mono-prior)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "args": [
+                "neus-facto",
+                "--pipeline.model.sdf-field.inside-outside=False",
+                "--vis=wandb",
+                "sdfstudio-data",
+                "--data=data/sdfstudio-demo-data/dtu-scan65",
+                "--include_mono_prior=False",
+                "--auto-orient=True"
+            ]
+        },
+        // python server_end/ros_train.py ros_gaussian_splatting --experiment-name debug --data data/replica_slam/undistorted/tx2_office0 --pipeline.datamanager.dataparser.ros-data config/camera/REPLICA_config_undistorted.json --draw-training-images True --vis viewer --steps_per_eval_all_images 30000 --steps_per_save 30001 --max_num_iterations 30001 --relocate_cameras True --disable_streaming False --pipeline.datamanager.dataparser.use_cached_training_data True --pipeline.eval_idx_list data/extra_cfg/replica_slam/tx2_office0/eval_idx.txt --pipeline.datamanager.training_sampler default --pipeline.datamanager.track_sample_cnt True --auto_transmission True
+        {
+            "name": "ros_gaussian_splatting",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "server_end/ros_train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONNOUSERSITE": "1",
+                "PYTHONPATH": "/home/ubuntu/Projects/Ruofan/DISORF-GS:${env:PYTHONPATH}",
+            },
+            "args": [
+                "ros_gaussian_splatting",
+                "--experiment-name",
+                "debug",
+                "--data",
+                "data/replica_slam/undistorted/tx2_office0",
+                "--pipeline.datamanager.dataparser.ros-data",
+                "config/camera/REPLICA_config_undistorted.json",
+                "--draw-training-images",
+                "True",
+                "--vis",
+                "tensorboard",
+                "--steps_per_eval_all_images",
+                "30000",
+                "--steps_per_save",
+                "30001",
+                "--max_num_iterations",
+                "30001",
+                "--relocate_cameras",
+                "True",
+                "--disable_streaming",
+                "False",
+                "--pipeline.datamanager.dataparser.use_cached_training_data",
+                "False",
+                "--pipeline.eval_idx_list",
+                "data/extra_cfg/replica_slam/tx2_office0/eval_idx.txt",
+                "--pipeline.datamanager.training_sampler",
+                "default",
+                "--pipeline.datamanager.track_sample_cnt",
+                "True",
+                "--auto_transmission",
+                "False"
+            ]
+        },
+        {
+            "name": "splatfacto",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "nerfstudio/scripts/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONNOUSERSITE": "1",
+                "PYTHONPATH": "/home/ubuntu/Projects/Ruofan/DISORF-GS:${env:PYTHONPATH}",
+            },
+            "args": [
+                "splatfacto",
+                "--data",
+                "data_ros_nerfacto/nerfstudio/poster"
+            ]
+        },
+        // python server_end/ros_train.py ros_nerfacto --experiment-name debug_SO3xR3/offline --data data_ros_nerfacto/replica_slam/tx2_office0 --pipeline.datamanager.dataparser.ros-data config/camera/REPLICA_config_undistorted.json --draw-training-images True --vis tensorboard --steps_per_eval_all_images 200 --steps_per_save 201 --max_num_iterations 201 --relocate_cameras True --disable_streaming True --pipeline.datamanager.dataparser.use_cached_training_data True --pipeline.model.camera-optimizer.mode SO3xR3 --pipeline.eval_idx_list data_ros_nerfacto/extra_cfg/replica_slam/tx2_office0/eval_idx.txt 
+        {
+            "name": "ros_nerfacto",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "server_end/ros_train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONNOUSERSITE": "1",
+                "PYTHONPATH": "/home/ubuntu/Projects/Ruofan/DISORF-GS:${env:PYTHONPATH}",
+            },
+            "args": [
+                "ros_nerfacto",
+                "--experiment-name",
+                "debug_SO3xR3/offline",
+                "--data",
+                "data_ros_nerfacto/replica_slam/tx2_office0",
+                "--pipeline.datamanager.dataparser.ros-data",
+                "config/camera/REPLICA_config_undistorted.json",
+                "--draw-training-images",
+                "True",
+                "--vis",
+                "tensorboard",
+                "--steps_per_eval_all_images",
+                "200",
+                "--steps_per_save",
+                "201",
+                "--max_num_iterations",
+                "201",
+                "--relocate_cameras",
+                "True",
+                "--disable_streaming",
+                "True",
+                "--pipeline.datamanager.dataparser.use_cached_training_data",
+                "True",
+                "--pipeline.model.camera-optimizer.mode",
+                "SO3xR3",
+                "--pipeline.eval_idx_list",
+                "data_ros_nerfacto/extra_cfg/replica_slam/tx2_office0/eval_idx.txt"
+            ]
+        },
+        // python  server_end/ros_train.py ros_gaussian_splatting     --experiment-name EVAL_gsplat_1000/replica_slam_tx2_office0/online_default     --data data_ros_splatfacto/replica_slam/tx2_office0     --pipeline.datamanager.dataparser.ros-data config/camera/REPLICA_config_undistorted.json     --draw-training-images True     --vis tensorboard     --steps_per_eval_all_images 6900     --steps_per_save 6901     --max_num_iterations 6901     --relocate_cameras True     --disable_streaming True     --pipeline.datamanager.dataparser.use_cached_training_data True     --pipeline.model.num-random 1000     --pipeline.model.random-scale 3.0     --pipeline.model.num-downscales 3     --pipeline.model.resolution-schedule 600     --pipeline.eval_idx_list data_ros_nerfacto/extra_cfg/replica_slam/tx2_office0/eval_idx.txt     --pipeline.model.stop-split-at 6700     --pipeline.model.stop-screen-size-at 6500     --pipeline.model.camera-optimizer.mode SO3xR3     --pipeline.datamanager.replay_transmission_log data_ros_splatfacto/extra_cfg/replica_slam/tx2_office0/frames_log_50000.txt     --pipeline.datamanager.training_sampler default     --pipeline.model.rasterize-mode antialiased     --pipeline.model.refine-every 100     --pipeline.datamanager.track_sample_cnt True     --logging.local-writer.enable False
+        {
+            "name": "ros_gaussian_splatting_online",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "server_end/ros_train.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "1",
+                "PYTHONNOUSERSITE": "1",
+                "PYTHONPATH": "/home/ruofan/Project/DISORF-GS:/opt/ros/noetic/lib/python3/dist-packages:/home/ruofan/noetic_ws/install_isolated/lib/python3/dist-packages:${env:PYTHONPATH}",
+            },
+            "args": [
+                "ros_gaussian_splatting",
+                "--experiment-name",
+                "EVAL_gsplat_1000/replica_slam_tx2_office0/online_default",
+                "--data",
+                "data_ros_splatfacto/replica_slam/tx2_office0",
+                "--pipeline.datamanager.dataparser.ros-data",
+                "config/camera/REPLICA_config_undistorted.json",
+                "--draw-training-images",
+                "True",
+                "--vis",
+                "tensorboard",
+                "--steps_per_eval_all_images",
+                "6900",
+                "--steps_per_save",
+                "6901",
+                "--max_num_iterations",
+                "6901",
+                "--relocate_cameras",
+                "True",
+                "--disable_streaming",
+                "True",
+                "--pipeline.datamanager.dataparser.use_cached_training_data",
+                "True",
+                "--pipeline.model.num-random",
+                "1000",
+                "--pipeline.model.random-scale",
+                "3.0",
+                "--pipeline.model.num-downscales",
+                "3",
+                "--pipeline.model.resolution-schedule",
+                "600",
+                "--pipeline.eval_idx_list",
+                "data_ros_nerfacto/extra_cfg/replica_slam/tx2_office0/eval_idx.txt",
+                "--pipeline.model.stop-split-at",
+                "6700",
+                "--pipeline.model.stop-screen-size-at",
+                "6500",
+                "--pipeline.model.camera-optimizer.mode",
+                "SO3xR3",
+                "--pipeline.datamanager.replay_transmission_log",
+                "data_ros_splatfacto/extra_cfg/replica_slam/tx2_office0/frames_log_50000.txt",
+                "--pipeline.datamanager.training_sampler",
+                "default",
+                "--pipeline.model.rasterize-mode",
+                "antialiased",
+                "--pipeline.model.mvs_init",
+                "True",
+                "--pipeline.model.refine-every",
+                "100",
+                "--pipeline.datamanager.track_sample_cnt",
+                "True",
+                "--logging.local-writer.enable",
+                "False"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "disorf"
+version = "0.1"
+description = "Realtime 3D reconstruction framework"
+readme = "README.md"
+license = { text="Apache 2.0"}
+requires-python = ">=3.8.0"
+
+[tool.setuptools.packages.find]
+include = ["server_end*"]

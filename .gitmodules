@@ -1,0 +1,9 @@
+[submodule "libs/dust3r"]
+	path = libs/dust3r
+	url = https://github.com/naver/dust3r.git
+[submodule "libs/nerfstudio"]
+	path = libs/nerfstudio
+	url = https://github.com/Xiaorui-Huang/nerfstudio
+[submodule "libs/DISORF-local-end"]
+	path = libs/DISORF-local-end
+	url = https://github.com/Xiaorui-Huang/DISORF-local-end
