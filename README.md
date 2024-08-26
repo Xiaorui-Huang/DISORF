@@ -59,6 +59,7 @@ pip install --upgrade pip
 
 ```bash
 pip install rospkg # ROS1
+pip install -e .
 conda install -c "nvidia/label/cuda-12.1.1" cuda-toolkit # CUDA & torch
 conda install pytorch==2.2.2 torchvision==0.17.2 pytorch-cuda=12.1 -c pytorch -c nvidia 
 pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
