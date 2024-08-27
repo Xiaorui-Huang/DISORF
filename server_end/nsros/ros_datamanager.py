@@ -490,6 +490,21 @@ class ROSDataManager(base_datamanager.VanillaDataManager):  # pylint: disable=ab
         batch of data from the train dataloader.
         """
         if self.dummy_batch:
+            if self.config.use_gaussian_splatting:
+                camera = self.train_dataset.cameras[0:1].to(self.device)
+                camera.camera_to_worlds = camera.camera_to_worlds.clone()
+                if camera.metadata is None:
+                    camera.metadata = {}
+                camera.metadata["cam_idx"] = 0
+                data = {}
+
+                data["image"] = torch.zeros((self.height, self.width, 3), device=self.device)
+                data["image_idx"] = 0
+
+                batch = {"indices": torch.zeros((1, 1), device=self.device)}
+
+                self.current_batch = batch
+                return camera, data
             batch = self.train_pixel_sampler.sample(self.train_image_dataloader._get_updated_batch(3))
             ray_indices = batch["indices"]
             ray_bundle = self.train_ray_generator(ray_indices)
