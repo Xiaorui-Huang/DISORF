@@ -17,8 +17,8 @@ class ConcurrentQueue:
         self.push_id += 1
         self.queue.put(obj)
 
-    def pop(self) -> Any:
-        res = self.queue.get()
+    def pop(self, timeout) -> Any:
+        res = self.queue.get(timeout=timeout)
         current_time_millis = int(round(time.time() * 1000))
         print("pop, ", self.pop_id, " timestamp is, ", current_time_millis)
         self.pop_id += 1
@@ -87,5 +87,5 @@ class PacketDeserializer:
             worker = PacketDeserializerWorker(client_socket, self.pipe)
             threading.Thread(target=worker.run, daemon=True).start()
 
-    def read(self) -> dict:
-        return self.pipe.pop()
+    def read(self, timeout = 1) -> dict:
+        return self.pipe.pop(timeout)

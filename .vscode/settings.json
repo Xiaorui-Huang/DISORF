@@ -131,4 +131,8 @@
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
+    "python.analysis.extraPaths": [
+        "./libs/nerfstudio",
+        "./libs/dust3r"
+    ],
 }

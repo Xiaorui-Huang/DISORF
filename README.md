@@ -74,6 +74,8 @@ cd -
 # Optional Dust3r dependency for Multi-View Stereo initialization
 # First time using MVS will be slow as it downloads checkpoints
 cd libs/dust3r
+
+# Create the install config for dust3r as editable local package and allows the easy import
 cat <<EOF > pyproject.toml
 [build-system]
 requires = ["setuptools>=61.0"]
