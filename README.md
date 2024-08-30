@@ -69,9 +69,9 @@ cd -
 ```
 
 #### Dust3r (Optional)
-
+This is not required to use DISORF
+Installing the Dust3r dependency allows for Multi-View Stereo initializations of scenes
 ```bash
-# Optional Dust3r dependency for Multi-View Stereo initialization
 # First time using MVS will be slow as it downloads checkpoints
 cd libs/dust3r
 
