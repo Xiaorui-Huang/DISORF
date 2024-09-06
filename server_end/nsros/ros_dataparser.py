@@ -58,6 +58,25 @@ class ROSDataParser(DataParser):
         dataparser_outputs = self._generate_dataparser_outputs(split, num_images)
         return dataparser_outputs
 
+    def update_meta_file(self, meta, file_path):
+        # Load existing meta data
+        if file_path.exists():
+            current_meta = load_from_json(file_path)
+        else:
+            # Meta file {file_path} does not exist, nothing to update
+            return 
+
+        # Check and update values
+        updated = False
+        for key in ["H", "W", "fx", "fy", "cx", "cy", "k1", "k2", "k3", "k4", "p1", "p2", "scale", "translation"]:
+            if key in meta and meta[key] != current_meta.get(key, None):
+                current_meta[key] = meta[key]
+                updated = True
+
+        # Write to file if updated
+        if updated:
+            write_to_json(file_path, current_meta)
+
     def _generate_dataparser_outputs(self, split="train", num_images: int = 300):
         """
         This function generates a DataParserOutputs object. Typically in Nerfstudio
@@ -129,6 +148,8 @@ class ROSDataParser(DataParser):
             CONSOLE.log(f"Process: {split}")
             # Create Directory If Not Exists (0718 Update)
             if (self.data / "images").exists():
+            # update camera infor cached files if any has changed
+                self.update_meta_file(meta, self.data / "transforms.json")
                 if (self.data / "transforms.json").exists() and self.config.use_cached_training_data:
                     transforms_meta = load_from_json(self.data / "transforms.json")
                     poses = []
