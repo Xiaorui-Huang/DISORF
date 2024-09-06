@@ -19,6 +19,7 @@ NeRF implementation that combines many recent advancements.
 
 from __future__ import annotations
 
+import contextlib
 import math
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Type, Union
@@ -1056,25 +1057,27 @@ class SplatfactoModel(Model):
     def _get_downscale_factor(self, step=None):
         step = self.step if step is None else step
         downscale_func = self.config.downscale_func
-        if self.training:
-            if downscale_func == 'exp2':
-                return 2 ** max(
-                    (self.config.num_downscales - step // self.config.resolution_schedule),
-                    0,
-                )
-            elif downscale_func == 'exp':
-                return 2 ** max(
-                    (self.config.num_downscales - step / self.config.resolution_schedule),
-                    0,
-                )
-            elif downscale_func == 'linear':
-                max_scale = 2 ** self.config.num_downscales
-                return max(
-                    max_scale - step / self.config.resolution_schedule,
-                    1,
-                )
-        else:
-            return 1
+
+        with self.train_lock if (hasattr(self, 'train_lock') and self.train_lock is not None) else contextlib.nullcontext() :
+            if self.training:
+                if downscale_func == 'exp2':
+                    return 2 ** max(
+                        (self.config.num_downscales - step // self.config.resolution_schedule),
+                        0,
+                    )
+                elif downscale_func == 'exp':
+                    return 2 ** max(
+                        (self.config.num_downscales - step / self.config.resolution_schedule),
+                        0,
+                    )
+                elif downscale_func == 'linear':
+                    max_scale = 2 ** self.config.num_downscales
+                    return max(
+                        max_scale - step / self.config.resolution_schedule,
+                        1,
+                    )
+            else:
+                return 1
 
     def _downscale_if_required(self, image, p_step=None):
         d = self._get_downscale_factor(step=p_step)

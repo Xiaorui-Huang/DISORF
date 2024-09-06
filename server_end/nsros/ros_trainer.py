@@ -211,6 +211,9 @@ class ROSTrainer(Trainer):
 
         if self.config.method_name == "ros_gaussian_splatting":
             self.pipeline.model.mvs_point_init(self.pipeline)
+            
+        if self.viewer_state is not None:
+            setattr(self.pipeline.model, "train_lock", self.viewer_state.train_lock)
 
 
     @check_viewer_enabled
