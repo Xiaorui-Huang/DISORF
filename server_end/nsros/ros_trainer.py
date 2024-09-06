@@ -124,7 +124,7 @@ class ROSTrainer(Trainer):
         else:
             # Start Status check loop
             status = False
-            CONSOLE.print(f"[bold green] (NSROS) Waiting for for image streaming to begin ....")
+            CONSOLE.print(f"[bold green] (NSROS) Waiting for image streaming to begin ....")
             # transmission auto start, some dirty codes here for quick logging.
             if self.config.auto_transmission:
                 CONSOLE.print(f"data: {self.config.data}")
