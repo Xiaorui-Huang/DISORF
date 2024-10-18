@@ -419,7 +419,7 @@ class SplatfactoModel(Model):
                 dim=0,
             )
 
-        if self.vis_counts is not None:
+        if hasattr(self, 'vis_counts') and self.vis_counts is not None:
             self.vis_counts = torch.cat(
                 [
                     self.vis_counts,
