@@ -8,6 +8,8 @@ on-device SLAM for pose estimation and performing high-quality 3D reconstruction
 using neural methods like NeRF and 3D Gaussian Splatting (3DGS) on powerful
 servers.
 
+**Update December 2024**, our paper has been accepted into RA-L and will be presented at ICRA 2025 [**DISORF IEEE RA-L**](https://ieeexplore.ieee.org/document/10803046)
+
 [[DISORF arxiv](https://arxiv.org/abs/2403.00228)]
 
 ![disorf](./figs/process_chart_smaller.png)
@@ -308,15 +310,16 @@ If you use DISORF in your research, please cite our paper:
 @article{li2024disorf,
   title        = {{DISORF}: A Distributed Online 3D Reconstruction Framework for Mobile Robots},
   author       = {Li, Chunlin and Fan, Hanrui and Huang, Xiaorui and Liang, Ruofan and Durvasula, Sankeerth and Vijaykumar, Nandita},
-  year         = {2024},
-  note         = {Under review for IEEE Robotics and Automation Letters (RA-L)},
-  eprint       = {2403.00228},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.RO},
-  url          = {https://arxiv.org/abs/2403.00228}
+  journal      = {IEEE Robotics and Automation Letters (RA-L)},
+  year         = {2025},
+  volume       = {10},
+  number       = {2},
+  pages        = {1329--1336},
+  month        = feb,
+  doi          = {10.1109/LRA.2024.3518111},
+  url          = {https://doi.org/10.1109/LRA.2024.3518111},
+  issn         = {2377-3766},
+  publisher    = {IEEE},
 }
+
 ```
-
-## Disclaimer
-
-This paper has been submitted to IEEE Robotics and Automation Letters (RA-L) for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible.
